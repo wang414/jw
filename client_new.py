@@ -21,7 +21,7 @@ class LoginFrame(wx.Frame):
         # 定义panel中的控件
         self.serverAddressLabel = wx.StaticText(panel, label="Server Address")
         self.userNameLabel = wx.StaticText(panel, label="UserName")
-        self.serverAddress = wx.TextCtrl(panel)
+        self.serverAddress = wx.TextCtrl(panel, value='127.0.0.1:6666')
         self.userName = wx.TextCtrl(panel)
         self.loginButton = wx.Button(panel, label='Login')
 
@@ -167,8 +167,10 @@ class ChatFrame(wx.Frame):
         # 给指定用户发送消息
         message = str(self.message.GetLineText(0)).strip()
         username = str(self.toUser.GetLineText(0)).strip()
+        # print(f"message:{message}", f"username:{username}")
         if message != '' and username != '':
-            con.write(('DesignSay ' + message + ' ' + username + '\n').encode("utf-8"))  # 通过write写给服务器端
+            con.write(('DesignSay ' + message + '&' + username + '\n').encode("utf-8"))  # 通过write写给服务器端
+            # print(f"message:{message}", f"username:{username}")
             self.message.Clear()
             self.toUser.Clear()
 

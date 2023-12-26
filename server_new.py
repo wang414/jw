@@ -83,12 +83,14 @@ class CommandHandler:  # 命令处理类
 
     def handle(self, session, line):
         line = line.decode()
-        #         print(line)
+        # print(f"line{line}")
         # 命令处理
         if not line.strip():  # 如果line去掉左右空格后为空
             return
         parts = line.split(' ', 1)  # 以空格为分隔符，分隔成两个
         cmd = parts[0]
+        # print(f"parts:{parts}")
+        # print(f"cmd:{cmd}")
         try:
             line = parts[1].strip()
         except IndexError:
@@ -199,9 +201,12 @@ class ChatRoom(Room):
     def do_DesignSay(self, session, line):
         # 发送消息给指定的用户
         words = line.split('&', 1)  # 以&为分隔符，分隔成两个，发送的消息和指定收信人的姓名
+        print(words)
+
         msg = words[0]  # 获取发送消息内容
         topeople = words[1]  # 获取收信人名称
         sendpeople = session.name  # 获取发信人的名称
+        print(msg, topeople, sendpeople)
         self.sendDesignMsg((session.name + ':' + msg + '\n').encode('utf-8'), sendpeople, topeople)
 
     def do_look(self, session, line):
